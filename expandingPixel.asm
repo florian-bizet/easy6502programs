@@ -1,29 +1,37 @@
-LDA #$02
-STA $01
 
+;Pixel Coordinates 
 LDA #$ef
 STA $f0
 LDA #$03
 STA $f1
 
+;Pixel Color
 LDA #$01
 STA $00
 
+;cooldown
+LDA #$20
+STA $01
+
+;Main loop
 loop:    
-    DEC $01
     JSR cooldownCheck
-    LDY #$00
     LDA $00
+    LDY #$00
     STA ($f0),Y 
     JMP loop
 
+;Check if cooldown = 0 -> read input
 cooldownCheck:
-    LDX $01
-    CPX #$00
+    DEC $01
+    LDA $01
+    CMP #$00
     BEQ inputHandler
     RTS
 
+
 inputHandler:
+    ;Keypress check
     LDY $ff
     CPY #$7A
     BEQ upKey
@@ -33,8 +41,16 @@ inputHandler:
     BEQ downKey
     CPY #$64
     BEQ rightKey
+    ;Cooldown Reset
+    LDA #$20
+    STA $01
     RTS
 
+; 
+;
+; Vertical direction keypresses
+;
+;
 upKey:
     SEC
     LDA $f0
@@ -57,18 +73,6 @@ decrementHighByte:
     LDA $f0
     RTS
 
-leftKey:
-    DEC $f0 
-    LDA #$08
-    STA $00
-    RTS
-
-rightKey:
-    INC $f0
-    LDA #$0e
-    STA $00
-    RTS
-
 downKey:
     LDA $f0
     ADC #$20
@@ -89,3 +93,22 @@ incrementHighByte:
     INC $f1
     LDA $f0
     RTS
+
+;
+;
+; Horizontal Direction keypresses
+;
+;
+
+leftKey:
+    DEC $f0 
+    LDA #$08
+    STA $00
+    RTS
+
+rightKey:
+    INC $f0
+    LDA #$0e
+    STA $00
+    RTS
+
