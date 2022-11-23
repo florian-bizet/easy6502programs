@@ -1,6 +1,8 @@
 # easy6502programs
 Programs i made in order to learn 6502 assembly language using easy6502 architecture
 
+**UPDATE** : I am now using [6502asm.com](http://www.6502asm.com/) to run my code. It emulates the same architecture but runs faster.
+
 [Check out easy6502 here !](https://skilldrick.github.io/easy6502/simulator.html)
 
 ## Program list (sorted by chronological order) :
