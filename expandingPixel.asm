@@ -71,7 +71,7 @@ rightKey:
 
 downKey:
     LDA $f0
-    ADC #$1f
+    ADC #$20
     BCS downborderCheck
     STA $f0
     LDA #$04
