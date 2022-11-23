@@ -1,8 +1,5 @@
-define colorAdr    $00
-define cooldown $01
-
 LDA #$02
-STA cooldown
+STA $01
 
 LDA #$ef
 STA $f0
@@ -10,18 +7,18 @@ LDA #$03
 STA $f1
 
 LDA #$01
-STA colorAdr
+STA $00
 
 loop:    
-    DEC cooldown
+    DEC $01
     JSR cooldownCheck
     LDY #$00
-    LDA colorAdr
+    LDA $00
     STA ($f0),Y 
     JMP loop
 
 cooldownCheck:
-    LDX cooldown
+    LDX $01
     CPX #$00
     BEQ inputHandler
     RTS
@@ -45,7 +42,7 @@ upKey:
     BCC upborderCheck
     STA $f0
     LDA #$03
-    STA colorAdr
+    STA $00
     RTS
 
 upborderCheck:
@@ -63,13 +60,13 @@ decrementHighByte:
 leftKey:
     DEC $f0 
     LDA #$08
-    STA colorAdr
+    STA $00
     RTS
 
 rightKey:
     INC $f0
     LDA #$0e
-    STA colorAdr
+    STA $00
     RTS
 
 downKey:
@@ -78,7 +75,7 @@ downKey:
     BCS downborderCheck
     STA $f0
     LDA #$04
-    STA colorAdr
+    STA $00
     RTS
 
 downborderCheck:
